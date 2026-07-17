@@ -1002,6 +1002,129 @@ const QUESTION_BANK = {
         explain: "El operador(a) tiene un rol activo: debe detener toda actividad hasta que los controles críticos estén implementados."
       }
     ]
+  },
+  artp: {
+    label: "ART, TNC y ARTP",
+    icon: "📝",
+    questions: [
+      {
+        q: "¿Cuál es la diferencia principal entre un ART y una TNC?",
+        options: [
+          "El ART es para tareas que activan una o más Estrategias de Control (EdC); la TNC es para tareas que no activan ninguna EdC",
+          "Son exactamente lo mismo, solo cambia el nombre",
+          "La TNC es obligatoria solo para trabajos en altura",
+          "El ART es opcional y la TNC es obligatoria"
+        ],
+        correct: 0,
+        explain: "El ART verifica si aplica alguna de las Estrategias de Control de la compañía; si no aplica ninguna, corresponde usar la TNC, un formato más simple."
+      },
+      {
+        q: "¿Qué corresponde hacer si durante la ejecución de la tarea se detectan cambios en las personas, el entorno o las herramientas respecto a lo planificado?",
+        options: [
+          "Continuar sin problema si el supervisor no está presente",
+          "Aplicar la Gestión del Cambio: evaluar el evento no deseado y definir controles adicionales antes de continuar",
+          "Detener la tarea de forma permanente",
+          "Ignorar el cambio si es menor"
+        ],
+        correct: 1,
+        explain: "La Gestión del Cambio exige evaluar cualquier cambio en personas, entorno o herramientas, definir controles adicionales y verificar su implementación antes de continuar."
+      },
+      {
+        q: "Si existen condiciones inseguras o controles ausentes o fallidos durante la tarea, ¿qué herramienta debe aplicar el trabajador?",
+        options: ["Yo Digo No", "El permiso de trabajo", "La firma de la ARTP", "El checklist de EPP"],
+        correct: 0,
+        explain: "\"Yo Digo No\" es la facultad y responsabilidad de todo trabajador de detener la tarea ante condiciones inseguras o controles ausentes o fallidos."
+      },
+      {
+        q: "En un ARTP de trabajo en altura, ¿qué indica una tarjeta roja en una plataforma o andamio?",
+        options: ["Que el equipo está aprobado para uso", "Que el equipo está restringido para su uso", "Que falta personal", "Que la tarea es una TNC"],
+        correct: 1,
+        explain: "La tarjeta de aprobación identifica el estado del andamio o plataforma: verde significa aprobado y roja, restringido para su uso."
+      },
+      {
+        q: "¿Cuándo es obligatorio completar el punto \"Trabajos Cruzados\" de un ART?",
+        options: ["Siempre, sin excepción", "Solo si existe interacción con otros trabajos en el área", "Solo en tareas de excavación", "Nunca, es opcional"],
+        correct: 1,
+        explain: "El ART exige completar la verificación de trabajos cruzados cuando existe interacción con otras labores presentes en el área."
+      },
+      {
+        q: "Según el formato TNC, ¿en qué familias se clasifican los riesgos y consecuencias evaluados?",
+        options: ["Seguridad, Higiénico y Musculoesquelético", "Alto, Medio y Bajo", "Físico, Químico y Biológico", "Crítico y No Crítico"],
+        correct: 0,
+        explain: "El listado estandarizado de riesgos de la TNC se agrupa en tres familias: Seguridad, Higiénico y Musculoesquelético."
+      },
+      {
+        q: "¿Quién debe verificar los controles durante la ejecución de la tarea según el ART?",
+        options: ["Solo el supervisor, nadie más", "El trabajador con mayor rango y/o experiencia dentro del equipo de trabajo", "Un auditor externo", "El área de RRHH"],
+        correct: 1,
+        explain: "El verificador de los controles es el trabajador con mayor rango y/o experiencia del equipo, sin eximir al supervisor de su responsabilidad total y directa."
+      },
+      {
+        q: "Si cambian las condiciones de la tarea, la jornada, el entorno, los equipos o los integrantes iniciales, ¿qué corresponde hacer con el ART?",
+        options: ["Continuar con el mismo documento sin cambios", "Confeccionar un nuevo ART", "Notificar solo de forma verbal", "Anexar una nota al final del turno"],
+        correct: 1,
+        explain: "Cualquier cambio relevante respecto a lo planificado obliga a confeccionar un nuevo ART."
+      }
+    ]
+  },
+  asp: {
+    label: "ASP - Atento Socio Preventivo",
+    icon: "🤝",
+    questions: [
+      {
+        q: "¿Qué es el programa \"Atento Socio Preventivo\" (ASP)?",
+        options: [
+          "Una auditoría externa de seguridad",
+          "Un programa de mutuo cuidado basado en la observación entre compañeros de trabajo",
+          "Un análisis de riesgo de la tarea",
+          "Un área de supervisión preventiva"
+        ],
+        correct: 1,
+        explain: "ASP es un programa de mutuo cuidado que busca mejorar los resultados mediante la gestión participativa de todos los trabajadores."
+      },
+      {
+        q: "Según la Curva de Bradley, ¿cuál es la fase más avanzada de madurez en cultura de seguridad?",
+        options: ["Reactiva (Instintos Naturales)", "Dependiente (Supervisión)", "Independiente (Individuo)", "Interdependiente (Equipo)"],
+        correct: 3,
+        explain: "La fase Interdependiente representa el nivel más maduro: responsabilidad compartida y cuidado mutuo como equipo."
+      },
+      {
+        q: "¿Qué tipo de motivación se describe como \"me importa tu seguridad\", orientada al cuidado de los demás más allá del interés personal?",
+        options: ["Motivación extrínseca", "Motivación intrínseca", "Motivación trascendente", "Motivación normativa"],
+        correct: 2,
+        explain: "La motivación trascendente va más allá del interés individual: se basa en el cuidado genuino del bienestar de los demás."
+      },
+      {
+        q: "¿En qué momentos de la jornada debe aplicar su verificación el socio preventivo, según la metodología ASP?",
+        options: ["Solo al inicio de la tarea", "Antes, Durante y Después", "Solo si ocurre un incidente", "Una vez por semana"],
+        correct: 1,
+        explain: "El programa exige verificación en tres momentos de la actividad: Antes, Durante y Después."
+      },
+      {
+        q: "Si el socio preventivo detecta una desviación durante su verificación, ¿qué debe hacer?",
+        options: ["Anotarla para reportarla al final del mes", "Informar de forma inmediata al supervisor para levantar la condición", "Ignorarla si es menor", "Resolverla por su cuenta sin avisar"],
+        correct: 1,
+        explain: "Toda desviación detectada debe informarse de inmediato al supervisor para gestionar su cierre antes de continuar la tarea."
+      },
+      {
+        q: "¿Cuál es la nomenclatura correcta para reportar un hallazgo detectado mediante el programa ASP?",
+        options: ["HALLAZGO-ASP-001", "ASP- Título del hallazgo", "REPORTE-SSO-ASP", "ASP/Fecha/Hallazgo"],
+        correct: 1,
+        explain: "La nomenclatura oficial del programa es \"ASP- Título del hallazgo\" (o \"Yo digo NO – ASP- Título del hallazgo\" si corresponde)."
+      },
+      {
+        q: "¿Debe ser siempre la misma persona el socio preventivo del equipo de trabajo?",
+        options: ["Sí, se designa una sola vez y no cambia", "No, se recomienda ir rotando el rol entre los miembros del equipo", "Solo puede serlo un supervisor", "Solo puede serlo el trabajador más antiguo"],
+        correct: 1,
+        explain: "Se recomienda rotar el rol de socio preventivo entre las cuadrillas, dando así oportunidad de aprendizaje a todos los miembros del equipo."
+      },
+      {
+        q: "¿Qué determina la categoría de reconocimiento (gold, platinum, black) de un socio preventivo?",
+        options: ["El número de hallazgos que reporta", "Las semanas mínimas de participación continua en el programa", "El cargo que tiene en la empresa", "La antigüedad en la compañía"],
+        correct: 1,
+        explain: "Las categorías de reconocimiento se basan en semanas mínimas de participación continua en el programa (6, 8 y 10 semanas respectivamente)."
+      }
+    ]
   }
 };
 
@@ -1016,6 +1139,7 @@ let score = 0;
 let currentCategoryKey = null;
 let currentCategoryLabel = "";
 let currentWrongTopics = [];
+let currentWrongDetails = []; // {pregunta, control} por cada respuesta fallada
 
 /* ---------- Insignias, recomendaciones y frases motivacionales ---------- */
 function getBadge(pct){
@@ -1210,6 +1334,7 @@ function startQuizForCurrentParticipant(){
   currentIndex = 0;
   score = 0;
   currentWrongTopics = [];
+  currentWrongDetails = [];
   showOnly(quizScreen);
   renderQuestion();
 }
@@ -1258,6 +1383,7 @@ function selectAnswer(i){
     feedback.className = 'feedback show bad';
     feedback.textContent = `❌ Incorrecto. ${q.explain}`;
     currentWrongTopics.push(q.cat);
+    currentWrongDetails.push({ pregunta: q.q, control: q.explain });
   }
 
   document.getElementById('score-badge').textContent = `Puntaje: ${score}`;
@@ -1276,7 +1402,7 @@ document.getElementById('next-btn').onclick = () => {
 /* ---------- Registro de resultados en Google Sheets ---------- */
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjYo-4qcUIgyi-AvvSjfbSeIA9D9SaYY71-SNhXN-8OeQkQhd_01RnY7_0mo14JLEn/exec";
 
-function logResultToSheet(participant, categoriaLabel, modoLabel){
+function logResultToSheet(participant, categoriaLabel, modoLabel, fallosDetalle){
   try {
     fetch(SCRIPT_URL, {
       method: "POST",
@@ -1287,7 +1413,8 @@ function logResultToSheet(participant, categoriaLabel, modoLabel){
         modo: modoLabel,
         categoria: categoriaLabel,
         puntaje: participant.score,
-        total: participant.total
+        total: participant.total,
+        fallos: fallosDetalle || []
       })
     });
   } catch(err){
@@ -1299,7 +1426,7 @@ function logResultToSheet(participant, categoriaLabel, modoLabel){
 function finishParticipantRun(){
   participants[currentParticipantIndex].score = score;
   participants[currentParticipantIndex].wrongTopics = [...new Set(currentWrongTopics)];
-  logResultToSheet(participants[currentParticipantIndex], currentCategoryLabel, mode === 'solo' ? 'Individual' : 'Competencia');
+  logResultToSheet(participants[currentParticipantIndex], currentCategoryLabel, mode === 'solo' ? 'Individual' : 'Competencia', currentWrongDetails);
 
   if(mode === 'solo'){
     showIndividualResult();
@@ -1433,6 +1560,7 @@ function resetAll(){
   currentCategoryKey = null;
   currentCategoryLabel = "";
   currentWrongTopics = [];
+  currentWrongDetails = [];
 
   modeSoloBtn.classList.remove('active');
   modeCompBtn.classList.remove('active');
