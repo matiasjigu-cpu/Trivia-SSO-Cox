@@ -1273,9 +1273,33 @@ document.getElementById('next-btn').onclick = () => {
   }
 };
 
+/* ---------- Registro de resultados en Google Sheets ---------- */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjYo-4qcUIgyi-AvvSjfbSeIA9D9SaYY71-SNhXN-8OeQkQhd_01RnY7_0mo14JLEn/exec";
+
+function logResultToSheet(participant, categoriaLabel, modoLabel){
+  try {
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        nombre: participant.name,
+        modo: modoLabel,
+        categoria: categoriaLabel,
+        puntaje: participant.score,
+        total: participant.total
+      })
+    });
+  } catch(err){
+    // Falla silenciosa: nunca debe interrumpir el juego por un problema de red
+    console.warn("No se pudo registrar el resultado:", err);
+  }
+}
+
 function finishParticipantRun(){
   participants[currentParticipantIndex].score = score;
   participants[currentParticipantIndex].wrongTopics = [...new Set(currentWrongTopics)];
+  logResultToSheet(participants[currentParticipantIndex], currentCategoryLabel, mode === 'solo' ? 'Individual' : 'Competencia');
 
   if(mode === 'solo'){
     showIndividualResult();
