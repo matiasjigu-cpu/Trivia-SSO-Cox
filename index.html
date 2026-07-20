@@ -218,6 +218,44 @@
   }
   .cat-btn:hover{background:var(--copper); color:#fff;}
   .cat-btn small{display:block; font-weight:400; opacity:.75; margin-top:4px; font-size:.75rem;}
+  .cat-btn{position:relative; padding-left:38px;}
+  .cat-btn::before{
+    content:'';
+    position:absolute;
+    left:12px; top:50%;
+    transform:translateY(-50%);
+    width:18px; height:18px;
+    border-radius:5px;
+    border:2px solid var(--copper);
+    background:#fff;
+    transition:.15s ease;
+  }
+  .cat-btn.selected{background:#fbf3ec; color:var(--graphite); border-color:var(--copper);}
+  .cat-btn.selected::before{
+    background:var(--copper);
+    border-color:var(--copper);
+    box-shadow:inset 0 0 0 3px #fff;
+  }
+  .cat-btn:hover::before{border-color:#fff;}
+  .cat-btn.selected:hover{background:#fbf3ec; color:var(--graphite);}
+  .cat-btn.selected:hover::before{border-color:var(--copper); background:var(--copper);}
+  .select-actions{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin:14px 0 4px 0;
+    font-size:.82rem;
+  }
+  .link-btn{
+    background:none;
+    border:none;
+    color:var(--copper);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:.82rem;
+    padding:4px;
+  }
+  .select-sep{color:#ccc;}
   .cat-btn.all{
     grid-column:1 / -1;
     background:var(--graphite);
@@ -570,9 +608,15 @@
 
   <!-- 1. MENU CATEGORIAS -->
   <div id="menu-screen" class="screen hidden">
-    <h2 class="section-title">Selecciona la categoría</h2>
+    <h2 class="section-title">Selecciona una o más categorías</h2>
     <p class="section-sub" id="menu-sub">Todos los participantes responderán el mismo set de preguntas.</p>
     <div class="cat-grid" id="cat-grid"></div>
+    <div class="select-actions">
+      <button class="link-btn" id="select-all-btn">Seleccionar todas</button>
+      <span class="select-sep">·</span>
+      <button class="link-btn" id="select-none-btn">Deseleccionar todas</button>
+    </div>
+    <button class="primary-btn" id="start-quiz-btn" disabled>Selecciona al menos una categoría</button>
   </div>
 
   <!-- 2. TURNO INTERINO -->
@@ -707,6 +751,28 @@ const QUESTION_BANK = {
         ],
         correct: 1,
         explain: "Las condiciones climáticas adversas son una causa reconocida de pérdida de equilibrio; el control preventivo es detener la tarea."
+      },
+      {
+        q: "¿Qué distancia mínima de aproximación al borde debe respetar un trabajador cuando no existe una protección perimetral (baranda) instalada?",
+        options: [
+          "No existe distancia mínima si se trabaja con cuidado",
+          "Una distancia de seguridad definida previamente, evitando el acceso a la zona de riesgo de caída",
+          "1 metro, sin excepción en cualquier caso",
+          "Solo aplica si la altura supera los 10 metros"
+        ],
+        correct: 1,
+        explain: "Sin protección perimetral instalada, se debe mantener una distancia de seguridad respecto al borde, definida según el análisis de riesgo de la tarea."
+      },
+      {
+        q: "¿Qué corresponde verificar respecto al punto de anclaje antes de conectar el sistema personal de detención de caídas (SPDC)?",
+        options: [
+          "Que esté a la altura de los pies del trabajador",
+          "Que esté certificado, identificado y indique la capacidad de carga que soporta",
+          "Que sea del mismo color que el arnés",
+          "No es necesario verificar nada, cualquier estructura sirve"
+        ],
+        correct: 1,
+        explain: "El punto de anclaje debe estar certificado, identificado y con su capacidad de carga indicada; usar estructuras no autorizadas es una causa crítica de falla del sistema."
       }
     ]
   },
@@ -764,6 +830,28 @@ const QUESTION_BANK = {
         options: ["Acto", "Objeto", "Sistema", "No aplica clasificación"],
         correct: 2,
         explain: "La calificación y acreditación del personal según criticidad (alta, media, baja) corresponde a un control crítico de tipo Sistema."
+      },
+      {
+        q: "¿Qué se debe hacer antes de iniciar el izaje respecto al radio de giro y las áreas cercanas?",
+        options: [
+          "No es necesario revisarlo si la carga es liviana",
+          "Verificar que no existan interferencias (líneas eléctricas, estructuras, personal) dentro del radio de giro y trabajo",
+          "Solo se revisa si el izaje dura más de una hora",
+          "Se revisa únicamente al finalizar la maniobra"
+        ],
+        correct: 1,
+        explain: "Antes de iniciar cualquier izaje se debe verificar que no existan interferencias dentro del radio de giro y de trabajo del equipo."
+      },
+      {
+        q: "¿Qué elementos de izaje (eslingas, grilletes, ganchos) deben verificarse antes de cada uso?",
+        options: [
+          "Solo su color de identificación",
+          "Su estado físico, certificación vigente y capacidad de carga acorde a la tarea",
+          "Solo que estén limpios",
+          "No requieren verificación si se usaron el día anterior"
+        ],
+        correct: 1,
+        explain: "Los elementos de izaje deben estar aptos para su uso: en buen estado físico, con certificación vigente y con capacidad adecuada para la carga a mover."
       }
     ]
   },
@@ -821,6 +909,28 @@ const QUESTION_BANK = {
         ],
         correct: 1,
         explain: "Un plan de tránsito ausente o mal diseñado es un factor de erosión reconocido para el control de velocidad."
+      },
+      {
+        q: "¿Qué corresponde hacer al aproximarse a una intersección o cruce sin señalización clara dentro de la faena?",
+        options: [
+          "Mantener la velocidad si no hay otro vehículo visible",
+          "Reducir la velocidad, detenerse si es necesario y verificar antes de cruzar",
+          "Tocar la bocina y cruzar sin detenerse",
+          "Acelerar para despejar la intersección rápido"
+        ],
+        correct: 1,
+        explain: "Ante una intersección sin señalización clara, se debe reducir la velocidad y verificar las condiciones antes de continuar, priorizando la prevención sobre la fluidez del tránsito."
+      },
+      {
+        q: "¿Qué se debe hacer si el vehículo debe estacionarse en una pendiente dentro de la faena?",
+        options: [
+          "Dejarlo en neutro para facilitar el retiro rápido",
+          "Aplicar el freno de mano, calzar las ruedas y dejarlo en la marcha o posición adecuada",
+          "No es necesario ningún control adicional en pendientes",
+          "Estacionar en cualquier ángulo respecto a la pendiente"
+        ],
+        correct: 1,
+        explain: "En pendiente, el vehículo debe quedar con freno de mano aplicado, ruedas calzadas y en la marcha/posición que evite el desplazamiento involuntario."
       }
     ]
   },
@@ -866,6 +976,39 @@ const QUESTION_BANK = {
         ],
         correct: 1,
         explain: "El permiso formal certifica la verificación de condiciones atmosféricas, EPP y plan de rescate."
+      },
+      {
+        q: "¿Con qué frecuencia se debe monitorear la atmósfera una vez que el trabajo dentro del espacio confinado ya comenzó?",
+        options: [
+          "Solo al inicio, no es necesario repetir la medición",
+          "De forma continua o a intervalos definidos durante toda la permanencia",
+          "Solo si el trabajador reporta molestias",
+          "Una vez por turno, sin importar la duración"
+        ],
+        correct: 1,
+        explain: "La atmósfera puede cambiar durante la tarea (por trabajos en caliente, purgas, etc.), por lo que el monitoreo debe mantenerse durante toda la permanencia."
+      },
+      {
+        q: "Si durante el monitoreo continuo la atmósfera se vuelve peligrosa, ¿qué corresponde hacer de inmediato?",
+        options: [
+          "Continuar la tarea usando protección respiratoria",
+          "Evacuar el espacio confinado de inmediato y reevaluar",
+          "Esperar a terminar el paso que se está ejecutando",
+          "Ventilar sin salir del área"
+        ],
+        correct: 1,
+        explain: "Ante una atmósfera peligrosa se debe evacuar de inmediato; solo se reingresa una vez controlada la condición y verificada nuevamente."
+      },
+      {
+        q: "¿Qué elemento de rescate debe estar disponible antes de autorizar el ingreso a un espacio confinado de alto riesgo?",
+        options: [
+          "Un equipo de rescate y personal capacitado, listos para actuar",
+          "No se requiere nada adicional si hay un vigía",
+          "Solo un extintor",
+          "Un botiquín de primeros auxilios básico"
+        ],
+        correct: 0,
+        explain: "El plan de rescate y los medios para ejecutarlo deben estar disponibles antes del ingreso, no improvisarse durante una emergencia."
       }
     ]
   },
@@ -906,6 +1049,39 @@ const QUESTION_BANK = {
         ],
         correct: 2,
         explain: "El catastro de interferencias subterráneas previene contactos con redes eléctricas, agua u otras instalaciones críticas."
+      },
+      {
+        q: "¿Qué acción es obligatoria si un trabajador debe ingresar a una excavación de más de 1.5 m de profundidad sin sistema de protección instalado?",
+        options: [
+          "Ingresar igual si la tarea es corta",
+          "No ingresar hasta contar con el sistema de protección adecuado (entibación o talud)",
+          "Ingresar con arnés como única medida",
+          "Ingresar solo si hay dos personas presentes"
+        ],
+        correct: 1,
+        explain: "Sin un sistema de protección contra derrumbe instalado, el ingreso a una excavación de esa profundidad no está permitido bajo ninguna circunstancia."
+      },
+      {
+        q: "¿Qué se debe utilizar para que el personal pueda entrar y salir de forma segura de una excavación profunda?",
+        options: [
+          "Saltar directamente al fondo",
+          "Una escalera u otro medio de acceso seguro, cercano al lugar de trabajo",
+          "Ser izado con una eslinga",
+          "No es necesario ningún medio de acceso"
+        ],
+        correct: 1,
+        explain: "Debe disponerse de un medio de acceso y salida seguro, ubicado a una distancia razonable del punto de trabajo dentro de la excavación."
+      },
+      {
+        q: "¿Qué se debe hacer con una excavación abierta que quede sin vigilancia, por ejemplo al finalizar el turno?",
+        options: [
+          "Dejarla abierta sin ninguna señal si está en un área poco transitada",
+          "Señalizarla y protegerla perimetralmente para evitar caídas de personas o vehículos",
+          "Rellenarla parcialmente sin informar a nadie",
+          "No requiere ninguna acción adicional"
+        ],
+        correct: 1,
+        explain: "Toda excavación abierta debe quedar debidamente señalizada y protegida en todo momento, incluso fuera del horario de trabajo activo."
       }
     ]
   },
@@ -1000,6 +1176,28 @@ const QUESTION_BANK = {
         ],
         correct: 1,
         explain: "El operador(a) tiene un rol activo: debe detener toda actividad hasta que los controles críticos estén implementados."
+      },
+      {
+        q: "¿Qué es un \"evento no deseado\" dentro de la metodología bowtie?",
+        options: [
+          "El resultado positivo de una tarea bien planificada",
+          "La materialización del peligro: el momento en que el riesgo se libera de forma descontrolada",
+          "Un sinónimo de control crítico",
+          "El nombre del formulario de reporte de accidentes"
+        ],
+        correct: 1,
+        explain: "El evento no deseado es el punto central del bowtie: el momento en que el peligro se libera y puede derivar en consecuencias."
+      },
+      {
+        q: "¿Qué significa \"controles críticos\" en plural, cuando una misma tarea tiene más de uno?",
+        options: [
+          "Basta con que uno de ellos esté implementado para iniciar la tarea",
+          "Todos deben estar implementados y verificados antes de iniciar la tarea",
+          "Solo el primero de la lista es obligatorio",
+          "Se pueden implementar durante la ejecución de la tarea"
+        ],
+        correct: 1,
+        explain: "Cuando una tarea tiene varios controles críticos asociados, todos deben estar implementados y verificados antes de comenzar, no solo uno de ellos."
       }
     ]
   },
@@ -1064,6 +1262,23 @@ const QUESTION_BANK = {
         options: ["Continuar con el mismo documento sin cambios", "Confeccionar un nuevo ART", "Notificar solo de forma verbal", "Anexar una nota al final del turno"],
         correct: 1,
         explain: "Cualquier cambio relevante respecto a lo planificado obliga a confeccionar un nuevo ART."
+      },
+      {
+        q: "¿Cuál de las siguientes NO forma parte de las 4 \"A\" que se deben considerar al verificar la efectividad de una segregación 360°?",
+        options: ["Arriba", "Abajo", "Alrededor", "Atrás"],
+        correct: 3,
+        explain: "La verificación de segregación 360° considera Arriba, Abajo y Alrededor (las \"3 A\"), evaluando niveles superiores e inferiores que puedan verse afectados."
+      },
+      {
+        q: "Si un trabajador requiere un permiso especial de trabajo (por ejemplo, trabajo en caliente o espacio confinado) y no lo dispone, ¿qué corresponde hacer?",
+        options: [
+          "Iniciar la tarea y tramitar el permiso después",
+          "No iniciar la tarea y dar aviso a la supervisión",
+          "Iniciar la tarea solo si es de corta duración",
+          "Solicitar el permiso a un compañero de otra área"
+        ],
+        correct: 1,
+        explain: "Si se requiere un permiso especial y no se dispone de él, la instrucción es clara: no iniciar la tarea y avisar a la supervisión."
       }
     ]
   },
@@ -1123,6 +1338,172 @@ const QUESTION_BANK = {
         options: ["El número de hallazgos que reporta", "Las semanas mínimas de participación continua en el programa", "El cargo que tiene en la empresa", "La antigüedad en la compañía"],
         correct: 1,
         explain: "Las categorías de reconocimiento se basan en semanas mínimas de participación continua en el programa (6, 8 y 10 semanas respectivamente)."
+      },
+      {
+        q: "¿Qué representa la \"motivación intrínseca\" dentro del programa de mutuo cuidado?",
+        options: [
+          "Actuar por una recompensa externa",
+          "Actuar por desarrollo personal y autorrealización, sin necesidad de que me lo pidan",
+          "Actuar únicamente por el bienestar de otros",
+          "Actuar solo cuando hay supervisión presente"
+        ],
+        correct: 1,
+        explain: "La motivación intrínseca se basa en factores internos: el desarrollo personal y la autorrealización, resumida como \"lo hago porque quiero\"."
+      },
+      {
+        q: "En la Curva de Bradley, ¿qué caracteriza a la Fase 1 (Reactiva / Instintos Naturales)?",
+        options: [
+          "Responsabilidad compartida como equipo",
+          "Seguridad delegada al gerente de seguridad y falta de participación de la administración",
+          "Normas, compromiso y conocimiento de gran alcance",
+          "Cuidado de los demás como valor central"
+        ],
+        correct: 1,
+        explain: "La Fase 1 (Reactiva) se caracteriza por seguridad basada en instintos, delegada al área de seguridad, con baja participación de la administración."
+      }
+    ]
+  },
+  bloqueo: {
+    label: "Bloqueo y Aislamiento",
+    icon: "🔒",
+    questions: [
+      {
+        q: "¿Cuál es el objetivo principal de un procedimiento de bloqueo y etiquetado (LOTO)?",
+        options: [
+          "Registrar quién realizó la última mantención al equipo",
+          "Controlar las energías peligrosas para evitar una puesta en marcha o liberación de energía inesperada durante una intervención",
+          "Medir el consumo eléctrico del equipo",
+          "Reemplazar el permiso de trabajo"
+        ],
+        correct: 1,
+        explain: "El bloqueo y etiquetado (LOTO) existe para controlar toda fuente de energía peligrosa y evitar que el equipo se active mientras alguien lo interviene."
+      },
+      {
+        q: "Ordena el criterio correcto: antes de bloquear un equipo, ¿qué se debe hacer primero?",
+        options: [
+          "Bloquear directamente sin apagar el equipo",
+          "Identificar todas las fuentes de energía del equipo y luego apagarlo mediante su procedimiento normal de detención",
+          "Retirar las guardas de protección",
+          "Notificar solo al finalizar la intervención"
+        ],
+        correct: 1,
+        explain: "El primer paso es identificar todas las fuentes de energía asociadas al equipo; luego se apaga mediante el procedimiento normal antes de aislar y bloquear."
+      },
+      {
+        q: "Después de bloquear y etiquetar un equipo, ¿qué se debe verificar antes de comenzar a trabajar en él?",
+        options: [
+          "Que no haya energía residual o almacenada peligrosa",
+          "Que el equipo tenga combustible",
+          "Que el clima sea favorable",
+          "No es necesario verificar nada adicional"
+        ],
+        correct: 0,
+        explain: "Tras aislar y bloquear, se debe verificar que no exista energía residual o almacenada (por ejemplo, presión en un sistema hidráulico) antes de intervenir el equipo."
+      },
+      {
+        q: "¿Qué acción final confirma que el bloqueo fue efectivo antes de iniciar el trabajo?",
+        options: [
+          "Preguntarle al operador si el equipo está apagado",
+          "Intentar activar los controles normales de encendido del equipo para confirmar que no responde",
+          "Revisar visualmente el candado desde lejos",
+          "No se requiere ninguna prueba adicional"
+        ],
+        correct: 1,
+        explain: "El paso de \"probar\" consiste en intentar activar los controles normales del equipo para confirmar que, efectivamente, no puede ponerse en marcha."
+      },
+      {
+        q: "Si varios trabajadores intervienen el mismo equipo, ¿cómo debe aplicarse el bloqueo?",
+        options: [
+          "Solo el supervisor coloca un candado por todo el equipo",
+          "Cada trabajador debe instalar su propio candado personal (bloqueo múltiple)",
+          "Basta con un solo candado compartido entre todos",
+          "No es necesario bloquear si son varios trabajadores presentes"
+        ],
+        correct: 1,
+        explain: "Cuando participan varios trabajadores, cada uno debe instalar su propio dispositivo de bloqueo personal, de modo que el equipo no pueda liberarse hasta que todos retiren el suyo."
+      },
+      {
+        q: "¿Qué documento formal exige el sistema de permisos de trabajo antes de intervenir un equipo que requiere control de energías?",
+        options: [
+          "El permiso de aislación y bloqueo",
+          "El permiso de trabajo en caliente únicamente",
+          "No se requiere ningún permiso si el trabajo es breve",
+          "Solo una autorización verbal del operador"
+        ],
+        correct: 0,
+        explain: "El permiso de aislación y bloqueo es uno de los permisos de trabajo formales requeridos antes de intervenir un equipo con fuentes de energía peligrosas."
+      }
+    ]
+  },
+  partesmoviles: {
+    label: "Interacción con Partes Móviles",
+    icon: "⚙️",
+    questions: [
+      {
+        q: "Según el Reglamento de Seguridad Minera chileno, ¿qué debe tener toda máquina o equipo con partes móviles que impliquen riesgo de atrapamiento?",
+        options: [
+          "Un manual de operación en español",
+          "Guardas de protección que eviten el contacto del cuerpo humano con los elementos móviles",
+          "Un letrero de advertencia únicamente",
+          "No se exige ningún requisito adicional"
+        ],
+        correct: 1,
+        explain: "El reglamento exige que toda máquina o equipo con partes móviles que impliquen riesgo de caídas o atrapamiento cuente con guardas de protección."
+      },
+      {
+        q: "¿Qué está expresamente prohibido respecto a las guardas de protección de una máquina en funcionamiento?",
+        options: [
+          "Limpiarlas antes de iniciar el turno",
+          "Retirarlas mientras la máquina o el equipo está en movimiento",
+          "Pintarlas de un color distinto",
+          "Inspeccionarlas periódicamente"
+        ],
+        correct: 1,
+        explain: "Está prohibido el retiro de guardas de protección de maquinaria y equipos que se encuentran en movimiento."
+      },
+      {
+        q: "¿Qué tipo de resguardo impide que la máquina funcione si la protección no está correctamente cerrada?",
+        options: [
+          "Resguardo fijo simple",
+          "Resguardo de enclavamiento",
+          "Resguardo decorativo",
+          "Ninguno, todos permiten operar igual"
+        ],
+        correct: 1,
+        explain: "El resguardo de enclavamiento está conectado al mecanismo de mando de la máquina: esta no puede ponerse en marcha hasta que el resguardo esté en posición de cierre."
+      },
+      {
+        q: "¿Qué se debe hacer si es necesario retirar una guarda de protección para realizar mantenimiento o limpieza de un equipo?",
+        options: [
+          "Retirarla y trabajar con precaución, sin medidas adicionales",
+          "Aislar y bloquear las fuentes de energía del equipo antes de retirar la guarda",
+          "Solo avisar verbalmente a los compañeros cercanos",
+          "Esperar a que el equipo esté detenido momentáneamente, sin bloquear"
+        ],
+        correct: 1,
+        explain: "El retiro de guardas para mantenimiento, limpieza u otras tareas de servicio exige primero aislar y bloquear las energías del equipo (LOTO), y verificar energía cero."
+      },
+      {
+        q: "¿Cuáles son ejemplos típicos de partes móviles que requieren guardas de protección en un equipo industrial o minero?",
+        options: [
+          "Fajas transportadoras, poleas, rodillos, engranajes y ejes",
+          "Solo los paneles eléctricos",
+          "Únicamente las ruedas de los vehículos livianos",
+          "Los extintores y elementos de emergencia"
+        ],
+        correct: 0,
+        explain: "Elementos como fajas transportadoras, poleas, rodillos, engranajes, ejes y correas son puntos típicos de riesgo de atrapamiento que requieren guardas de protección."
+      },
+      {
+        q: "¿Cuál es el principal riesgo asociado a la interacción con partes móviles sin protección adecuada?",
+        options: [
+          "Exposición a ruido excesivo",
+          "Atrapamiento o aprisionamiento entre partes móviles, o entre una parte móvil y una estructura fija",
+          "Fatiga visual",
+          "Exposición a radiación"
+        ],
+        correct: 1,
+        explain: "El riesgo principal es el atrapamiento: cuando una parte del cuerpo queda entre dos elementos, al menos uno de ellos móvil, o entre una parte móvil y una estructura fija cercana."
       }
     ]
   }
@@ -1258,28 +1639,78 @@ accessContinueBtn.onclick = () => {
 /* ---------- 1. MENU CATEGORIAS ---------- */
 const catGrid = document.getElementById('cat-grid');
 const menuSub = document.getElementById('menu-sub');
+const selectAllBtn = document.getElementById('select-all-btn');
+const selectNoneBtn = document.getElementById('select-none-btn');
+const startQuizBtn = document.getElementById('start-quiz-btn');
+let selectedCategories = new Set();
 
 function buildMenu(){
   menuSub.textContent = mode === 'comp'
     ? `Modo competencia: ${participants.map(p => p.name).join(', ')}. Todos responderán el mismo set de preguntas.`
-    : 'Selecciona una categoría para poner a prueba tus conocimientos.';
+    : 'Marca una o más categorías; se combinan en una sola partida.';
 
+  selectedCategories = new Set();
   catGrid.innerHTML = '';
-  const allBtn = document.createElement('button');
-  allBtn.className = 'cat-btn all';
-  allBtn.innerHTML = `🏆 Desafío completo <small>Todas las categorías mezcladas</small>`;
-  allBtn.onclick = () => selectCategory('__all__', 'Desafío Completo');
-  catGrid.appendChild(allBtn);
 
   Object.keys(QUESTION_BANK).forEach(key => {
     const cat = QUESTION_BANK[key];
     const btn = document.createElement('button');
     btn.className = 'cat-btn';
+    btn.dataset.key = key;
     btn.innerHTML = `${cat.icon} ${cat.label} <small>${cat.questions.length} preguntas</small>`;
-    btn.onclick = () => selectCategory(key, cat.label);
+    btn.onclick = () => toggleCategory(key, btn);
     catGrid.appendChild(btn);
   });
+
+  updateStartButton();
 }
+
+function toggleCategory(key, btn){
+  if(selectedCategories.has(key)){
+    selectedCategories.delete(key);
+    btn.classList.remove('selected');
+  } else {
+    selectedCategories.add(key);
+    btn.classList.add('selected');
+  }
+  updateStartButton();
+}
+
+function updateStartButton(){
+  const n = selectedCategories.size;
+  if(n === 0){
+    startQuizBtn.disabled = true;
+    startQuizBtn.textContent = 'Selecciona al menos una categoría';
+  } else {
+    let totalQ = 0;
+    selectedCategories.forEach(k => totalQ += QUESTION_BANK[k].questions.length);
+    startQuizBtn.disabled = false;
+    startQuizBtn.textContent = n === 1
+      ? `Comenzar (${totalQ} preguntas)`
+      : `Comenzar con ${n} categorías (${totalQ} preguntas)`;
+  }
+}
+
+selectAllBtn.onclick = () => {
+  selectedCategories = new Set(Object.keys(QUESTION_BANK));
+  [...catGrid.children].forEach(btn => btn.classList.add('selected'));
+  updateStartButton();
+};
+
+selectNoneBtn.onclick = () => {
+  selectedCategories = new Set();
+  [...catGrid.children].forEach(btn => btn.classList.remove('selected'));
+  updateStartButton();
+};
+
+startQuizBtn.onclick = () => {
+  const keys = [...selectedCategories];
+  if(keys.length === 1){
+    selectCategory(keys[0], QUESTION_BANK[keys[0]].label);
+  } else {
+    selectCategory(keys, `Desafío Personalizado (${keys.length} categorías)`);
+  }
+};
 
 function shuffle(arr){
   const a = [...arr];
@@ -1290,19 +1721,19 @@ function shuffle(arr){
   return a;
 }
 
-function selectCategory(key, label){
-  currentCategoryKey = key;
+function selectCategory(keyOrKeys, label){
+  currentCategoryKey = keyOrKeys;
   currentCategoryLabel = label;
 
   // Genera el set de preguntas UNA vez por partida, para que sea el mismo para todos los participantes
-  if(key === '__all__'){
+  if(Array.isArray(keyOrKeys)){
     let all = [];
-    Object.keys(QUESTION_BANK).forEach(k => {
+    keyOrKeys.forEach(k => {
       QUESTION_BANK[k].questions.forEach(q => all.push({...q, cat: QUESTION_BANK[k].label}));
     });
     currentQuiz = shuffle(all);
   } else {
-    currentQuiz = shuffle(QUESTION_BANK[key].questions.map(q => ({...q, cat: QUESTION_BANK[key].label})));
+    currentQuiz = shuffle(QUESTION_BANK[keyOrKeys].questions.map(q => ({...q, cat: QUESTION_BANK[keyOrKeys].label})));
   }
 
   participants.forEach(p => { p.score = 0; p.total = currentQuiz.length; });
